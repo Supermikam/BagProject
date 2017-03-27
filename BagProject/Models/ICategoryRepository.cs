@@ -8,5 +8,9 @@ namespace BagProject.Models
     public interface ICategoryRepository
     {
         IEnumerable<Category> Categories { get; }
+
+        Category Find(int id);
+        void AddCategory(Category category);
+        void Update(Category category);
     }
 }

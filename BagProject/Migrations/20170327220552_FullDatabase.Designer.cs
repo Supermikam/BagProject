@@ -8,9 +8,10 @@ using BagProject.Models;
 namespace BagProject.Migrations
 {
     [DbContext(typeof(BagContext))]
-    partial class BagContextModelSnapshot : ModelSnapshot
+    [Migration("20170327220552_FullDatabase")]
+    partial class FullDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1")
