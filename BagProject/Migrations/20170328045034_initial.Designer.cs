@@ -8,8 +8,8 @@ using BagProject.Models;
 namespace BagProject.Migrations
 {
     [DbContext(typeof(BagContext))]
-    [Migration("20170327220552_FullDatabase")]
-    partial class FullDatabase
+    [Migration("20170328045034_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,6 +34,8 @@ namespace BagProject.Migrations
                     b.Property<int>("CustomerID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("Active");
+
                     b.Property<string>("Address");
 
                     b.Property<string>("CustomerName");
@@ -44,6 +46,8 @@ namespace BagProject.Migrations
 
                     b.Property<string>("MobilePhone")
                         .IsRequired();
+
+                    b.Property<string>("Password");
 
                     b.Property<string>("WorkPhone");
 
@@ -106,7 +110,7 @@ namespace BagProject.Migrations
 
                     b.HasIndex("SupplierID");
 
-                    b.ToTable("Product");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("BagProject.Models.Supplier", b =>

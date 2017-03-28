@@ -5,21 +5,36 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace BagProject.Migrations
 {
-    public partial class FullDatabase : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    CategoryID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CategoryName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.CategoryID);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Customers",
                 columns: table => new
                 {
                     CustomerID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Active = table.Column<bool>(nullable: false),
                     Address = table.Column<string>(nullable: true),
                     CustomerName = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     HomePhone = table.Column<string>(nullable: true),
                     MobilePhone = table.Column<string>(nullable: false),
+                    Password = table.Column<string>(nullable: true),
                     WorkPhone = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -65,7 +80,7 @@ namespace BagProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Product",
+                name: "Products",
                 columns: table => new
                 {
                     ProductID = table.Column<int>(nullable: false)
@@ -79,15 +94,15 @@ namespace BagProject.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Product", x => x.ProductID);
+                    table.PrimaryKey("PK_Products", x => x.ProductID);
                     table.ForeignKey(
-                        name: "FK_Product_Categories_CategoryID",
+                        name: "FK_Products_Categories_CategoryID",
                         column: x => x.CategoryID,
                         principalTable: "Categories",
                         principalColumn: "CategoryID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Product_Suppliers_SupplierID",
+                        name: "FK_Products_Suppliers_SupplierID",
                         column: x => x.SupplierID,
                         principalTable: "Suppliers",
                         principalColumn: "SupplierID",
@@ -112,9 +127,9 @@ namespace BagProject.Migrations
                         principalColumn: "OrderID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_OrderLines_Product_ProductID",
+                        name: "FK_OrderLines_Products_ProductID",
                         column: x => x.ProductID,
-                        principalTable: "Product",
+                        principalTable: "Products",
                         principalColumn: "ProductID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -130,13 +145,13 @@ namespace BagProject.Migrations
                 column: "ProductID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product_CategoryID",
-                table: "Product",
+                name: "IX_Products_CategoryID",
+                table: "Products",
                 column: "CategoryID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product_SupplierID",
-                table: "Product",
+                name: "IX_Products_SupplierID",
+                table: "Products",
                 column: "SupplierID");
         }
 
@@ -149,10 +164,13 @@ namespace BagProject.Migrations
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Product");
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Customers");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "Suppliers");

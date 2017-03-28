@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using BagProject.Models;
+using Newtonsoft.Json;
 
 namespace BagProject
 {
@@ -22,6 +23,7 @@ namespace BagProject
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+            
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -30,8 +32,13 @@ namespace BagProject
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(options => {options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; }
+            );
             services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<CustomerRepository, CustomerRepository>();
+            services.AddTransient<SupplierRepository, SupplierRepository>();
+            services.AddTransient<ProductRepository, ProductRepository>();
+            services.AddTransient<OrderRepository, OrderRepository>();
             var connection = @"Server=(localdb)\mssqllocaldb;Database=BagDB;Trusted_Connection=True;";
             services.AddDbContext<BagContext>(options => options.UseSqlServer(connection));
         }
@@ -41,6 +48,8 @@ namespace BagProject
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+            
+
 
             if (env.IsDevelopment())
             {

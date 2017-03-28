@@ -33,6 +33,8 @@ namespace BagProject.Migrations
                     b.Property<int>("CustomerID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("Active");
+
                     b.Property<string>("Address");
 
                     b.Property<string>("CustomerName");
@@ -43,6 +45,8 @@ namespace BagProject.Migrations
 
                     b.Property<string>("MobilePhone")
                         .IsRequired();
+
+                    b.Property<string>("Password");
 
                     b.Property<string>("WorkPhone");
 
@@ -105,7 +109,7 @@ namespace BagProject.Migrations
 
                     b.HasIndex("SupplierID");
 
-                    b.ToTable("Product");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("BagProject.Models.Supplier", b =>
