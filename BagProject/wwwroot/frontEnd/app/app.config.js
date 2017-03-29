@@ -8,7 +8,7 @@ angular.
 
             $routeProvider.
                 when('/bags', {
-                    template: '<bags></bags>'
+                    template: '<bag-list></bag-list>'
                 }).
                 otherwise('/bags');
         }

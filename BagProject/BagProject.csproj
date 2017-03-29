@@ -12,14 +12,11 @@
     <Content Include="wwwroot\css\bootstrap.min.css" />
     <Content Include="wwwroot\frontEnd\app\app.config.js" />
     <Content Include="wwwroot\frontEnd\app\app.module.js" />
-    <Content Include="wwwroot\frontEnd\app\bag-list\bagList.component.js" />
+    <Content Include="wwwroot\frontEnd\app\bag-list\bag-list.component.js" />
     <Content Include="wwwroot\frontEnd\app\bag-list\bagList.module.js" />
     <Content Include="wwwroot\frontEnd\app\bag-list\bag-list.template.html" />
+    <Content Include="wwwroot\frontEnd\app\bag-list\BagListController.js" />
     <Content Include="wwwroot\frontEnd\app\BagListController.js" />
-    <Content Include="wwwroot\frontEnd\app\shared\BagListController.js" />
-    <Content Include="wwwroot\frontEnd\app\shared\RESTDataResourceFactory\dataSource.module.js" />
-    <Content Include="wwwroot\frontEnd\app\shared\RESTDataResourceFactory\dataSource.service.js" />
-    <Content Include="wwwroot\frontEnd\app\shared\shared.module.js" />
     <Content Include="wwwroot\images\products\product1.jpg" />
     <Content Include="wwwroot\images\products\product2.jpg" />
     <Content Include="wwwroot\images\products\product3.jpg" />

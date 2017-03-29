@@ -1,17 +1,1 @@
-﻿<div ng-controller="BagListController">
-    <div class="container-fluid">
-        <div class="row">
-            <ul class="bags">
-                <li ng-repeat="bag in bags | orderBy: orderProp"
-                    class="thumbnail">
-                    <a href="#!/bags/{{bag.productID}}" class="thumb">
-                        <img ng-src="{{bag.imageLink}}" alt="{{bag.productName}}" />
-                    </a>
-                    <a href="#!/phones/{{bag.productID}}">{{bag.productName}}</a>
-                    <p>{{bag.discription}}</p>
-                    <p>{{bag.price}}</p>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
+﻿<bag-list></bag-list>
