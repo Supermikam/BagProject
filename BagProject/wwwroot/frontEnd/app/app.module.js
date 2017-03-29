@@ -2,7 +2,6 @@
 
 angular.module('bagApp', [
     'ngRoute',
-    'shared',
-    'bagList',
+    'shared'
 ]);
 
