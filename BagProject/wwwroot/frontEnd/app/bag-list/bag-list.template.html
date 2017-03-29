@@ -1,0 +1,15 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <ul class="bags">
+            <li ng-repeat="bag in $ctrl.bags | orderBy:$ctrl.orderProp"
+                class="thumbnail">
+                <a href="#!/bags/{{bag.ProductID}}" class="thumb">
+                    <img ng-src="{{bag.ImageLink}}" alt="{{bag.ProductName}}" />
+                </a>
+                <a href="#!/phones/{{bag.ProductID}}">{{bag.ProductName}}</a>
+                <p>{{bag.Discription}}</p>
+                <p>{{bag.Price}}</p>
+            </li>
+        </ul>
+    </div>
+</div>

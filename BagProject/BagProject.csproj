@@ -9,12 +9,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\css\bootstrap.min.css" />
+    <Content Include="wwwroot\frontEnd\app\app.config.js" />
+    <Content Include="wwwroot\frontEnd\app\app.module.js" />
+    <Content Include="wwwroot\frontEnd\app\bag-list\bagList.component.js" />
+    <Content Include="wwwroot\frontEnd\app\bag-list\bagList.module.js" />
+    <Content Include="wwwroot\frontEnd\app\bag-list\bag-list.template.html" />
+    <Content Include="wwwroot\frontEnd\app\shared\RESTDataResourceFactory\dataSource.module.js" />
+    <Content Include="wwwroot\frontEnd\app\shared\RESTDataResourceFactory\dataSource.service.js" />
+    <Content Include="wwwroot\frontEnd\app\shared\shared.module.js" />
     <Content Include="wwwroot\images\products\product1.jpg" />
     <Content Include="wwwroot\images\products\product2.jpg" />
     <Content Include="wwwroot\images\products\product3.jpg" />
     <Content Include="wwwroot\images\products\product4.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="angular-loading-bar" Version="0.9.0" />
+    <PackageReference Include="angularjs" Version="1.6.3" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.2" />
@@ -30,6 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\frontEnd\test\" />
   </ItemGroup>
 
 </Project>
