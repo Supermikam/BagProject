@@ -17,6 +17,8 @@
     <Content Include="wwwroot\frontEnd\app\bag-list\bag-list.template.html" />
     <Content Include="wwwroot\frontEnd\app\bag-list\BagListController.js" />
     <Content Include="wwwroot\frontEnd\app\BagListController.js" />
+    <Content Include="wwwroot\frontEnd\app\services.js" />
+    <Content Include="wwwroot\frontEnd\app\services\services.js" />
     <Content Include="wwwroot\images\products\product1.jpg" />
     <Content Include="wwwroot\images\products\product2.jpg" />
     <Content Include="wwwroot\images\products\product3.jpg" />
