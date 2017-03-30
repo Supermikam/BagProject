@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bag Project</title>
+    <title>Quality Bags</title>
     <environment names="Development">
         <link rel="stylesheet" href="~/css/bootstrap.min.css" />
         <script src="~/lib/angularjs/angular.js"></script>
@@ -11,9 +11,12 @@
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/lib/angular-resource/angular-resource.js"></script>
         <script src="~/lib/angular-route/angular-route.js"></script>
-        <script src="~/lib/angular-ui-router/release/angular-ui-router.js"></script>
 
-        <script src="~/frontEnd/app/services.js"></script>
+
+        <script src="~/frontEnd/app/services/service.module.js"></script>
+        <script src="~/frontEnd/app/services/service.http-data-factory.js"></script>
+        <script src="~/frontEnd/app/services/service.data-center.js"></script>
+        
         <script src="~/frontEnd/app/app.module.js"></script>
         <script src="~/frontEnd/app/app.config.js"></script>
         <script src="~/frontEnd/app/bag-list/bag-list.component.js"></script>
@@ -43,8 +46,11 @@
                 asp-fallback-src="~/lib/angular-resource/angular-resource.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.3/angular-route.min.js"
                 asp-fallback-src="~/lib/angular-route/angular-route.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router.js/0.4.2/angular-route.min.js"
-                asp-fallback-src="~/lib/angular-ui-router/release/angular-ui-router.js"></script>
+
+        <script src="~/frontEnd/app/services/service.module.js"></script>
+        <script src="~/frontEnd/app/services/service.http-data-factory.js"></script>
+        <script src="~/frontEnd/app/services/service.data-center.js"></script>
+
         <script src="~/frontEnd/app/app.module.js"></script>
         <script src="~/frontEnd/app/app.config.js"></script>
         <script src="~/frontEnd/app/bag-list/bag-list.component.js"></script>
