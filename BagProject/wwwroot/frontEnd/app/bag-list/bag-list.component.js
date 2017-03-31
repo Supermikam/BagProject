@@ -14,8 +14,6 @@ angular.
                 self.bags = DataCenter.getAllBags();
             };
 
-            
-
             init();
         }
         

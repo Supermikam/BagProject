@@ -9,7 +9,10 @@ angular.
             $routeProvider.
                 when('/bags', {
                     template: '<bag-list></bag-list>'
-                }).
-                otherwise('/bags');
+                })
+                .when('/bags/:id', {
+                    template: '<bag-detail></bag-detail>'
+                })
+                .otherwise('/bags');
         }
     ]);

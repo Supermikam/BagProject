@@ -12,6 +12,8 @@
     <Content Include="wwwroot\css\bootstrap.min.css" />
     <Content Include="wwwroot\frontEnd\app\app.config.js" />
     <Content Include="wwwroot\frontEnd\app\app.module.js" />
+    <Content Include="wwwroot\frontEnd\app\bag-detail\bag-detail.component.js" />
+    <Content Include="wwwroot\frontEnd\app\bag-detail\bag-detail.template.html" />
     <Content Include="wwwroot\frontEnd\app\bag-list\bag-list.component.js" />
     <Content Include="wwwroot\frontEnd\app\bag-list\bag-list.template.html" />
     <Content Include="wwwroot\frontEnd\app\services\service.module.js" />

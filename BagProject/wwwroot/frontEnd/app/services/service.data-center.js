@@ -10,7 +10,7 @@
                 },
 
                 getBagByID : function (id) {
-                    return bags.find(function (bag) { return bag.productID == id });
+                    return this.bags.find(function (bag) { return bag.productID == id });
                 }
             }
 
