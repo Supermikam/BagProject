@@ -9,16 +9,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot/frontEnd\app\services.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="wwwroot\css\bootstrap.min.css" />
+    <Content Include="wwwroot\frontEnd\app\app-root\app-root.component.js" />
+    <Content Include="wwwroot\frontEnd\app\app-root\app-root.template.html" />
     <Content Include="wwwroot\frontEnd\app\app.config.js" />
     <Content Include="wwwroot\frontEnd\app\app.module.js" />
     <Content Include="wwwroot\frontEnd\app\bag-detail\bag-detail.component.js" />
     <Content Include="wwwroot\frontEnd\app\bag-detail\bag-detail.template.html" />
+    <Content Include="wwwroot\frontEnd\app\bag-list\bag-list-bagitem.component.js" />
     <Content Include="wwwroot\frontEnd\app\bag-list\bag-list.component.js" />
     <Content Include="wwwroot\frontEnd\app\bag-list\bag-list.template.html" />
-    <Content Include="wwwroot\frontEnd\app\services\service.module.js" />
-    <Content Include="wwwroot\frontEnd\app\services\service.data-center.js" />
-    <Content Include="wwwroot\frontEnd\app\services\service.http-data-factory.js" />
+    <Content Include="wwwroot\frontEnd\app\services\services.data-center.js" />
+    <Content Include="wwwroot\frontEnd\app\services\services.http-data-factory.js" />
+    <Content Include="wwwroot\frontEnd\app\services\services.module.js" />
     <Content Include="wwwroot\images\products\product1.jpg" />
     <Content Include="wwwroot\images\products\product2.jpg" />
     <Content Include="wwwroot\images\products\product3.jpg" />

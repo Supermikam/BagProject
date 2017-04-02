@@ -8,7 +8,9 @@
     "jquery-validation": "1.14.0",
     "jquery-validation-unobtrusive": "3.2.6",
     "angular-route": "1.6.3",
-    "angular-resource": "1.6.3"
+    "angular-resource": "1.6.3",
+    "angular-ui-router": "1.0.0-rc.1"
+
 
   }
 }
