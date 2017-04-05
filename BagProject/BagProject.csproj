@@ -16,6 +16,7 @@
     <Content Include="wwwroot\css\bootstrap.min.css" />
     <Content Include="wwwroot\frontEnd\app\app-root\app-root.component.js" />
     <Content Include="wwwroot\frontEnd\app\app-root\app-root.template.html" />
+    <Content Include="wwwroot\frontEnd\app\app-root\subComponent\cart-icon.component.js" />
     <Content Include="wwwroot\frontEnd\app\app.config.js" />
     <Content Include="wwwroot\frontEnd\app\app.module.js" />
     <Content Include="wwwroot\frontEnd\app\bag-detail\bag-detail.component.js" />
@@ -30,6 +31,9 @@
     <Content Include="wwwroot\images\products\product2.jpg" />
     <Content Include="wwwroot\images\products\product3.jpg" />
     <Content Include="wwwroot\images\products\product4.jpg" />
+    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="angular-loading-bar" Version="0.9.0" />
