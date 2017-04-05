@@ -3,7 +3,10 @@
 angular.
     module('bagApp')
     .component('bagListBagitem', {
-        bindings: { bag: '<' },
+        bindings: {
+            bag: '<',
+            onAddToCart: '&',
+        },
         template: `
            <li>
                 <a ui-sref="app.detail({id:$ctrl.bag.productID})" >
@@ -12,6 +15,7 @@ angular.
                 <a ui-sref="app.detail({id:$ctrl.bag.productID})">{{$ctrl.bag.productName}}</a>
                 <p>{{$ctrl.bag.discription}}</p>
                 <p>{{$ctrl.bag.price}}</p>
+                <button type="button" ng-click="$ctrl.onAddToCart({ id: $ctrl.bag.productID })"> Add To Cart</button>
             </li>             
         `
     })

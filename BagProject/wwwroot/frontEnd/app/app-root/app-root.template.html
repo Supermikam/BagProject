@@ -1,9 +1,10 @@
 ﻿<header>
     <p>This is the header of the app root</p>
-    <cart-icon cart-count = "$ctrl.cart.cartlines.length"></cart-icon>
+    <!--change camelcase into snakecase in template for cartCount -->
+    <cart-icon cart-count = "$ctrl.cart.itemCount"></cart-icon>
     
 </header>
 <hr />
-<div ui-view="main" bags ="$ctrl.bags" ></div>
+<div ui-view="main" bags ="$ctrl.bags" on-add-to-cart ="$ctrl.addProductToCartByID(id)" ></div>
 <hr />
 <footer>This is the footer of the app root</footer>

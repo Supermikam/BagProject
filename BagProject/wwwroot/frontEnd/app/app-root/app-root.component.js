@@ -4,12 +4,14 @@ angular.
     module('bagApp')
     .component('appRoot', {
         templateUrl: '/frontEnd/app/app-root/app-root.template.html',
-        controller: ['DataCenter', function (DataCenter) {
+        controller: ['DataCenter', '$log', function (DataCenter, $log) {
             this.bags = DataCenter.getAllBags();
             this.cart = DataCenter.cart;
 
-            var addProductToCartByID = function (id) {
-                DataCenter.addProductToCart(id)
+            this.addProductToCartByID = function (id) {          
+                var bag = DataCenter.getBagByID(id);
+                DataCenter.addProductToCart(id);
             }
+
         }]
     });

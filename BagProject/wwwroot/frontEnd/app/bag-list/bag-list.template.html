@@ -2,7 +2,7 @@
 <div class="container-fluid">
     <div class="row">
         <ul class="bags">
-            <bag-list-bagitem ng-repeat="bag in $ctrl.bags" bag = "bag"
+            <bag-list-bagitem ng-repeat="bag in $ctrl.bags" bag = "bag" on-add-to-cart ="$ctrl.onAddToCart({ id: id })" 
                 class="thumbnail">
             </bag-list-bagitem>
         </ul>

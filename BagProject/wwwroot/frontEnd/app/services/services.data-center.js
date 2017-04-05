@@ -1,7 +1,7 @@
 ﻿angular.module('app.services')
     .factory('DataCenter',
-    ['Bag', 'Supplier', 'Category', 'Customer', 'Order',
-        function (Bag, Supplier, Category, Customer, Order) {
+    ['Bag', 'Supplier', 'Category', 'Customer', 'Order','$log',
+        function (Bag, Supplier, Category, Customer, Order,$log) {
             var _DataCenter = {
                 bags: Bag.query(),
 
@@ -16,41 +16,48 @@
                 cart: {
                     totalPrice: 0,
                     cartlines: [],
-                },
-
-                getCart: function () {
-                    return this.cart;
+                    itemCount: 0,
                 },
 
                 addProductToCart: function (id) {
+                    
                     function CartLine(product, quantity) {
                         this.product = product;
                         this.quantity = quantity;
                     };
-                    var bagToAdd = getBagByID(id);
-                    if (bagToAdd !== null) {
-                        var potentialLine = this.cart.cartlines.find(line => line.product.ProductID == id);
-                        if (potentialLine !== null) {
+                    var bagToAdd = this.getBagByID(id);
+        
+                    if (bagToAdd !== undefined) {
+                        var potentialLine = this.cart.cartlines.find(line => line.product.productID == id);
+                        if (potentialLine !== undefined) {
+                        
                             potentialLine.quantity += 1;
                             this.cart.totalPrice += potentialLine.product.price;
+                            this.cart.itemCount += 1;
+                            
                         } else {
                             var newLine = new CartLine(bagToAdd, 1);
+                           
                             this.cart.cartlines.push(newLine);
                             this.cart.totalPrice += newLine.product.price;
+                            this.cart.itemCount += 1;
+                            
                         }
                     }
                 },
 
                 removeProductFromCart: function (id) {
-                    var bagToRemove = getBagByID(id);
+                    var bagToRemove = this.getBagByID(id);
                     if (bagToRemove !== null) {
                         var potentialLine = this.cart.cartlines.find(line => line.product.productID == id);
                         if (potentialLine !== null) {
                             this.cart.totalPrice -= potentialLine.product.price;
+                            this.cart.itemCount -= 1;
                             if (potentialLine.quantity <= 1) {
                                 this.cart.cartlines.remove(line => line.product.ProductID == id);
                             } else {
                                 potentialLine.quantity -= 1;
+                                
                             }
                         }
                     }

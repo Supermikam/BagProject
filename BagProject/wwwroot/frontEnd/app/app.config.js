@@ -30,7 +30,6 @@ angular.
                
                     bag: function (DataCenter, $transition$) {
                         let id = $transition$.params().id;
-                        console.log($transition$.params().id);
                         return DataCenter.getBagByID(id);
                     }
                 },
