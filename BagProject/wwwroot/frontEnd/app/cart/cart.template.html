@@ -1,0 +1,19 @@
+﻿<div class="container-fluid">
+    <div class="row" ng-repeat="line in $ctrl.cart.cartlines">
+        <div class="col-md-1"><p>{{$index+1}}</p></div>
+        <div class="col-md-2"><img ng-src="{{line.product.imageLink}}" style="width: 100%"/></div>
+        <div class="col-md-4"><p>{{line.product.productName}}</p></div>
+        <div class="col-md-1"><p>${{line.product.price}}</p></div>
+        <div class="col-md-2"><p>Quantity: {{line.quantity}}</p></div>
+        <div class="col-md-2">
+            <button class="button" ng-click="$ctrl.onAddToCart({id:line.product.productID})">Add</button>
+            <button class="button" ng-click="$ctrl.onRemoveFromCart({id:line.product.productID})">Minus</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3, col-md-offset-9"><p>Total: ${{$ctrl.cart.totalPrice}}</p></div>
+    </div>
+    <div class="row">
+        <div class="col-md-3, col-md-offset-9"><button class="button" ng-click="$ctrl.onOrder()">Place Order</button></div>
+    </div>
+</div>

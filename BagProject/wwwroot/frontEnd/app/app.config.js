@@ -2,8 +2,8 @@
 
 angular.
     module('bagApp').
-    config(['$locationProvider', '$stateProvider','$urlServiceProvider',
-        function config($locationProvider, $stateProvider, $urlServiceProvider,Bag) {
+    config(['$locationProvider', '$stateProvider','$urlServiceProvider', '$logProvider',
+        function config($locationProvider, $stateProvider, $urlServiceProvider,Bag,$logProvider) {
             $urlServiceProvider.rules.otherwise({ state: 'app.list' });
             $stateProvider.state('app', {
                 //bags is set up in controller using DataCenter service
@@ -35,6 +35,17 @@ angular.
                 },
             });
 
+            $stateProvider.state('app.cart', {
+                url: '/cart',
+                views: {
+                    main: 'cart'
+                },
+                resolve: {
+                    cart: function (DataCenter) {
+                        return DataCenter.cart
+                    }
+                },
+            });
 
             ////try to nest detail in list and use @^.^ to point to grand parent 
             //$stateProvider.state('app.list.detail', {

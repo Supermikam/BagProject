@@ -24,6 +24,8 @@
     <Content Include="wwwroot\frontEnd\app\bag-list\bag-list-bagitem.component.js" />
     <Content Include="wwwroot\frontEnd\app\bag-list\bag-list.component.js" />
     <Content Include="wwwroot\frontEnd\app\bag-list\bag-list.template.html" />
+    <Content Include="wwwroot\frontEnd\app\cart\cart.component.js" />
+    <Content Include="wwwroot\frontEnd\app\cart\cart.template.html" />
     <Content Include="wwwroot\frontEnd\app\services\services.data-center.js" />
     <Content Include="wwwroot\frontEnd\app\services\services.http-data-factory.js" />
     <Content Include="wwwroot\frontEnd\app\services\services.module.js" />
