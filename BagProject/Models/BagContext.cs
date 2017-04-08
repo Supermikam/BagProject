@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace BagProject.Models
 {
-    public class BagContext : DbContext
-    {
+    public class BagContext : IdentityDbContext<AppUser> { 
+
         public BagContext(DbContextOptions<BagContext> options)
             : base(options)
         {
@@ -12,6 +13,7 @@ namespace BagProject.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<OrderLine>()
                 .HasKey(ol => new { ol.OrderID, ol.ProductID });
         }

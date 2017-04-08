@@ -8,23 +8,30 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using BagProject.Models;
 using Newtonsoft.Json;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
+using System.Security.Principal;
+using System.Text;
+using BagProject.SimpleTokenProvider;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 
 namespace BagProject
 {
-    public class Startup
+    public partial class Startup
     {
-        public Startup(IHostingEnvironment env)
+        public Startup(IHostingEnvironment env )
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
-            Configuration = builder.Build();
-    
-            
+            Configuration = builder.Build();            
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -35,6 +42,32 @@ namespace BagProject
             // Add framework services.
             services.AddMvc().AddJsonOptions(options => {options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; }
             );
+
+            services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<BagContext>()
+                .AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 8;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+
+                // Lockout settings
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                options.Lockout.MaxFailedAccessAttempts = 10;
+
+                // Cookie settings
+                options.Cookies.ApplicationCookie.ExpireTimeSpan = TimeSpan.FromDays(150);
+                options.Cookies.ApplicationCookie.LoginPath = "/Account/LogIn";
+                options.Cookies.ApplicationCookie.LogoutPath = "/Account/LogOff";
+
+                // User settings
+                options.User.RequireUniqueEmail = true;
+            });
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<CustomerRepository, CustomerRepository>();
             services.AddTransient<SupplierRepository, SupplierRepository>();
@@ -48,9 +81,8 @@ namespace BagProject
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddConsole(LogLevel.Debug);
             loggerFactory.AddDebug();
-            
-
 
             if (env.IsDevelopment())
             {
@@ -62,8 +94,9 @@ namespace BagProject
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            ConfigureAuth(app);
             app.UseStaticFiles();
-
+            app.UseIdentity();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
