@@ -16,14 +16,15 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Text;
-using BagProject.SimpleTokenProvider;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
+using BagProject.API;
 
 namespace BagProject
 {
-    public partial class Startup
+    public class Startup
     {
+
         public Startup(IHostingEnvironment env )
         {
             var builder = new ConfigurationBuilder()
@@ -80,6 +81,7 @@ namespace BagProject
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(AccountController.secretKey));
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddConsole(LogLevel.Debug);
             loggerFactory.AddDebug();
@@ -94,7 +96,44 @@ namespace BagProject
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            ConfigureAuth(app);
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                // The signing key must match!
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = signingKey,
+
+                // Validate the JWT Issuer (iss) claim
+                ValidateIssuer = true,
+                ValidIssuer = "Quality Bags",
+
+                // Validate the JWT Audience (aud) claim
+                ValidateAudience = true,
+                ValidAudience = "App User",
+
+                // Validate the token expiry
+                ValidateLifetime = true,
+
+                // If you want to allow a certain amount of clock drift, set that here:
+                ClockSkew = TimeSpan.FromMinutes(30)
+        };
+
+            app.UseJwtBearerAuthentication(new JwtBearerOptions
+            {
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true,
+                TokenValidationParameters = tokenValidationParameters
+            });
+
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true,
+                AuthenticationScheme = "Cookie",
+                CookieName = "access_token",
+                TicketDataFormat = new CustomJwtDataFormat(
+                    SecurityAlgorithms.HmacSha256,
+                    tokenValidationParameters)
+            });
             app.UseStaticFiles();
             app.UseIdentity();
             app.UseMvc(routes =>

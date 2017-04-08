@@ -5,6 +5,10 @@ using BagProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using System.Security.Principal;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace BagProject.API
 {
@@ -16,6 +20,7 @@ namespace BagProject.API
     [Route("api/[controller]/[action]")]
     public class AccountController : Controller
     {
+        public static readonly string secretKey = "mysupersecret_secretkey!123";
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
 
@@ -25,7 +30,7 @@ namespace BagProject.API
         {
             _signInManager = signInManager;
             _userManager = userManager;
-        } 
+        }
 
         [HttpPost]
         [AllowAnonymous]
@@ -45,12 +50,49 @@ namespace BagProject.API
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] NewUser newUser)
         {
-            var result = await _signInManager.PasswordSignInAsync(newUser.Email, newUser.Password, false, lockoutOnFailure: false);
+            var email = newUser.Email;
+            var password = newUser.Password;
+            var result = await _signInManager.PasswordSignInAsync(email, password, false, lockoutOnFailure: false);
             if (result.Succeeded)
             {
-                return new NoContentResult();
+                var user = await _userManager.FindByEmailAsync(email);
+                var userClaims = await _userManager.GetClaimsAsync(user);
+                var identity = new ClaimsIdentity(new GenericIdentity(email, "Token"), userClaims);
+                var now = DateTime.UtcNow;
+                var claims = new Claim[]
+                {
+                    new Claim(JwtRegisteredClaimNames.Sub, email),
+                    new Claim(JwtRegisteredClaimNames.Jti, await NonceGenerator()),
+                    new Claim(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(now).ToString(), ClaimValueTypes.Integer64)
+                };
+
+                var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
+                var exp = TimeSpan.FromMinutes(30);
+
+                var jwt = new JwtSecurityToken(
+                issuer: "Quality Bags",
+                audience: "App User",
+                claims: claims,
+                notBefore: now,
+                expires: now.Add(exp),
+                signingCredentials: new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256));
+
+                var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+                var response = new
+                {
+                    access_token = encodedJwt,
+                    expires_in = (int)exp.TotalSeconds
+                };
+
+                return new ObjectResult(response);
             }
             return new BadRequestResult();
         }
+
+        public static long ToUnixEpochDate(DateTime date) => new DateTimeOffset(date).ToUniversalTime().ToUnixTimeSeconds();
+
+        public Func<Task<string>> NonceGenerator { get; set; }
+            = new Func<Task<string>>(() => Task.FromResult(Guid.NewGuid().ToString()));
     }
 }
