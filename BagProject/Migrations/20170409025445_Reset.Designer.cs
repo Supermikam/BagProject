@@ -8,8 +8,8 @@ using BagProject.Models;
 namespace BagProject.Migrations
 {
     [DbContext(typeof(BagContext))]
-    [Migration("20170408034342_User")]
-    partial class User
+    [Migration("20170409025445_Reset")]
+    partial class Reset
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,17 +24,28 @@ namespace BagProject.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<bool>("Active");
+
+                    b.Property<string>("Address");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
+
+                    b.Property<string>("CustomerName");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
 
+                    b.Property<string>("HomePhone");
+
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("MobilePhone")
+                        .IsRequired();
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
@@ -54,6 +65,8 @@ namespace BagProject.Migrations
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
+
+                    b.Property<string>("WorkPhone");
 
                     b.HasKey("Id");
 
@@ -79,45 +92,18 @@ namespace BagProject.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("BagProject.Models.Customer", b =>
-                {
-                    b.Property<int>("CustomerID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("Active");
-
-                    b.Property<string>("Address");
-
-                    b.Property<string>("CustomerName");
-
-                    b.Property<string>("Email");
-
-                    b.Property<string>("HomePhone");
-
-                    b.Property<string>("MobilePhone")
-                        .IsRequired();
-
-                    b.Property<string>("Password");
-
-                    b.Property<string>("WorkPhone");
-
-                    b.HasKey("CustomerID");
-
-                    b.ToTable("Customers");
-                });
-
             modelBuilder.Entity("BagProject.Models.Order", b =>
                 {
                     b.Property<int>("OrderID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("CustomerID");
+                    b.Property<string>("Id");
 
                     b.Property<string>("ShippingStatus");
 
                     b.HasKey("OrderID");
 
-                    b.HasIndex("CustomerID");
+                    b.HasIndex("Id");
 
                     b.ToTable("Orders");
                 });
@@ -293,10 +279,9 @@ namespace BagProject.Migrations
 
             modelBuilder.Entity("BagProject.Models.Order", b =>
                 {
-                    b.HasOne("BagProject.Models.Customer", "Customer")
+                    b.HasOne("BagProject.Models.AppUser", "AppUser")
                         .WithMany("Orders")
-                        .HasForeignKey("CustomerID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("Id");
                 });
 
             modelBuilder.Entity("BagProject.Models.OrderLine", b =>

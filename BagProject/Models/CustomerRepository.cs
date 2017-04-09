@@ -11,21 +11,21 @@ namespace BagProject.Models
     public class CustomerRepository
     {
         private BagContext context;
-        public CustomerRepository(BagContext ctx, ILogger<CustomerRepository> logger)
+        public CustomerRepository(BagContext ctx)
         {
             context = ctx;
         }
 
-        public IEnumerable<Customer> Customers => context.Customers;
+        public IEnumerable<AppUser> Customers => context.AppUsers;
 
-        public Customer Find(int id)
+        public AppUser Find(string email)
         {
-            return context.Customers.FirstOrDefault(c => c.CustomerID == id);
+            return context.AppUsers.FirstOrDefault(au => au.Email == email);
         }
 
-        public Customer GetCustomerByID(int customerID)
+        public AppUser GetCustomerInfo(string email)
         {
-            var customer = context.Customers.FirstOrDefault(c => c.CustomerID == customerID);
+            var customer = context.AppUsers.FirstOrDefault(au => au.Email == email);
             context.Entry(customer).Collection(c => c.Orders).Load();
             var orders = customer.Orders.ToList();
 
@@ -40,21 +40,15 @@ namespace BagProject.Models
         }
 
 
-        public void AddCustomer(Customer customer)
+        public void Update(AppUser customer)
         {
-            context.Customers.Add(customer);
+            context.AppUsers.Update(customer);
             context.SaveChanges();
         }
 
-        public void Update(Customer customer)
+        public void Delete(AppUser customer)
         {
-            context.Customers.Update(customer);
-            context.SaveChanges();
-        }
-
-        public void Delete(Customer customer)
-        {
-            context.Customers.Remove(customer);
+            context.AppUsers.Remove(customer);
             context.SaveChanges();
         }
     }

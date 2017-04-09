@@ -17,7 +17,7 @@ namespace BagProject.Models
 
         public IEnumerable<Order> Orders => context.Orders
                         .Include(o => o.OrderLines)
-                        .Include(o => o.Customer);
+                        .Include(o => o.AppUser);
 
         public Order Find(int id)
         {

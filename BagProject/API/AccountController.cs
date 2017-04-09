@@ -9,6 +9,7 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Linq;
 
 namespace BagProject.API
 {
@@ -16,27 +17,53 @@ namespace BagProject.API
     {
         public string Email { get; set; }
         public string Password { get; set; }
+        public string CustomerName { get; set; }
+        public string HomePhone { get; set; }
+        public string WorkPhone { get; set; }
+        public string MobilePhone { get; set; }
+        public string Address { get; set; }
+        public bool Active { get; set; }
     }
+
+    public class LoginUser
+    {
+        public string Email { get; set; }
+        public string Password { get; set; }
+    }
+
     [Route("api/[controller]/[action]")]
     public class AccountController : Controller
     {
         public static readonly string secretKey = "mysupersecret_secretkey!123";
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+       // private CustomerRepository _customerRepo;
 
         public AccountController(
         UserManager<AppUser> userManager,
-        SignInManager<AppUser> signInManager)
+        SignInManager<AppUser> signInManager
+        //,CustomerRepository customerRepo
+        )
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            //_customerRepo = customerRepo;
         }
 
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] NewUser newUser)
         {
-            var user = new AppUser { UserName = newUser.Email, Email = newUser.Email };
+            var user = new AppUser {
+                UserName = newUser.Email,
+                Email = newUser.Email,
+                Active = newUser.Active,
+                CustomerName = newUser.CustomerName,
+                HomePhone = newUser.HomePhone,
+                WorkPhone = newUser.WorkPhone,
+                MobilePhone = newUser.MobilePhone,
+                Address = newUser.Address
+            };
             var result = await _userManager.CreateAsync(user, newUser.Password);
             if (result.Succeeded)
             {
@@ -48,7 +75,7 @@ namespace BagProject.API
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login([FromBody] NewUser newUser)
+        public async Task<IActionResult> Login([FromBody] LoginUser newUser)
         {
             var email = newUser.Email;
             var password = newUser.Password;
@@ -94,5 +121,21 @@ namespace BagProject.API
 
         public Func<Task<string>> NonceGenerator { get; set; }
             = new Func<Task<string>>(() => Task.FromResult(Guid.NewGuid().ToString()));
+
+
+        [Authorize]
+        [HttpGet]
+        public object Trial()
+        {
+            //return User.Claims.Select(c =>
+            //new
+            //{
+            //    Type = c.Type,
+            //    Value = c.Value
+            //});
+            return User;
+
+
+        }
     }
 }

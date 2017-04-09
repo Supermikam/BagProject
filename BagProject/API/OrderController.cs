@@ -58,7 +58,7 @@ namespace BagProject.API
                 return NotFound();
             }
 
-            orderToChange.CustomerID = order.CustomerID;
+            orderToChange.Id = order.Id;
             orderToChange.ShippingStatus = order.ShippingStatus;
             orderToChange.OrderLines = order.OrderLines;
 

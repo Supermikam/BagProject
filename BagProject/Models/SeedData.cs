@@ -58,33 +58,37 @@ namespace BagProject.Models
                     );
             }
             context.SaveChanges();
-            if (!context.Customers.Any())
-            {
-                context.Customers.AddRange(
-                    new Customer
-                    {
-                        CustomerName = "Anny Woho",
-                        HomePhone = "09-222-2222",
-                        MobilePhone = "022-011-3333",
-                        Email = "annywoho@gmail.com",
-                        Address = "1 the road, District 1, City 1, 0000",
-                        Active = true,
-                        Password = "password"
-                    },
-                    new Customer
-                    {
-                        CustomerName = "Billy Baby",
-                        HomePhone = "09-333-2222",
-                        MobilePhone = "022-022-3333",
-                        Email = "billybaby@gmail.com",
-                        Address = "2 the road, District 2, City 2, 1111",
-                        Active = true,
-                        Password = "password"
-                    }
-                    );
+            //if (!context.Customers.Any())
+            //{
+            //    context.Customers.AddRange(
+            //        new Customer
+            //        {
+            //            CustomerName = "Anny Woho",
+            //            HomePhone = "09-222-2222",
+            //            MobilePhone = "022-011-3333",
+                 
+            //            Address = "1 the road, District 1, City 1, 0000",
+            //            Active = true,
+                        
+            //            Id = "0f9a5282-16e5-41cc-8176-25e9d3bbce91"
+
+            //        },
+            //        new Customer
+            //        {
+            //            CustomerName = "Billy Baby",
+            //            HomePhone = "09-333-2222",
+            //            MobilePhone = "022-022-3333",
+                   
+            //            Address = "2 the road, District 2, City 2, 1111",
+            //            Active = true,
+                        
+            //            Id = "dbd65f7e-6122-4d58-93e4-f078d87b0afa"
+
+            //        }
+            //        );
                     
-            }
-            context.SaveChanges();
+            //}
+            //context.SaveChanges();
 
             if (!context.Products.Any())
             {
@@ -134,62 +138,62 @@ namespace BagProject.Models
                 context.Products.AddRange(productOne, productTwo, productThree,productFour); 
             }
             context.SaveChanges();
-            if (!context.Orders.Any())
-            {
-                var customerOne = context.Customers.FirstOrDefault(c => c.CustomerName == "Anny Woho");
-                var customerTwo = context.Customers.FirstOrDefault(c => c.CustomerName == "Billy Baby");
-                 context.Orders.AddRange(
-                    new Order
-                    {
-                        CustomerID = customerOne.CustomerID,
-                        ShippingStatus = "Not Shipped"
-                    },
-                    new Order
-                    {
-                        CustomerID = customerTwo.CustomerID,
-                        ShippingStatus = "Not Shipped"
-                    }
-                    );
+            //if (!context.Orders.Any())
+            //{
+            //    var customerOne = context.Customers.FirstOrDefault(c => c.CustomerName == "Anny Woho");
+            //    var customerTwo = context.Customers.FirstOrDefault(c => c.CustomerName == "Billy Baby");
+            //     context.Orders.AddRange(
+            //        new Order
+            //        {
+            //            CustomerID = customerOne.CustomerID,
+            //            ShippingStatus = "Not Shipped"
+            //        },
+            //        new Order
+            //        {
+            //            CustomerID = customerTwo.CustomerID,
+            //            ShippingStatus = "Not Shipped"
+            //        }
+            //        );
 
-            }
-            context.SaveChanges();
-            if (!context.OrderLines.Any())
-            {
-                var products = context.Products.ToList();
-                var orders = context.Orders.ToList();
-                context.OrderLines.AddRange(
-                    new OrderLine
-                    {
-                        Product = products.ElementAt(0),
-                        Order = orders.ElementAt(0),
-                        Quantity = 1
+            //}
+            //context.SaveChanges();
+            //if (!context.OrderLines.Any())
+            //{
+            //    var products = context.Products.ToList();
+            //    var orders = context.Orders.ToList();
+            //    context.OrderLines.AddRange(
+            //        new OrderLine
+            //        {
+            //            Product = products.ElementAt(0),
+            //            Order = orders.ElementAt(0),
+            //            Quantity = 1
 
-                    },
-                    new OrderLine
-                    {
-                        Product = products.ElementAt(1),
-                        Order = orders.ElementAt(0),
-                        Quantity = 1
+            //        },
+            //        new OrderLine
+            //        {
+            //            Product = products.ElementAt(1),
+            //            Order = orders.ElementAt(0),
+            //            Quantity = 1
 
-                    },
-                    new OrderLine
-                    {
-                        Product = products.ElementAt(2),
-                        Order = orders.ElementAt(1),
-                        Quantity = 2
+            //        },
+            //        new OrderLine
+            //        {
+            //            Product = products.ElementAt(2),
+            //            Order = orders.ElementAt(1),
+            //            Quantity = 2
 
-                    },
-                    new OrderLine
-                    {
-                        Product = products.ElementAt(3),
-                        Order = orders.ElementAt(1),
-                        Quantity = 2
+            //        },
+            //        new OrderLine
+            //        {
+            //            Product = products.ElementAt(3),
+            //            Order = orders.ElementAt(1),
+            //            Quantity = 2
 
-                    }
-                );
-            }
+            //        }
+            //    );
+            //}
 
-            context.SaveChanges();
+            //context.SaveChanges();
 
         }
     }

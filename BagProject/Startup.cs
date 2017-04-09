@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -13,8 +11,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using BagProject.Models;
 using Newtonsoft.Json;
 using Microsoft.IdentityModel.Tokens;
-using System.Security.Claims;
-using System.Security.Principal;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
