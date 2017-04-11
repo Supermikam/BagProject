@@ -14,7 +14,9 @@ namespace BagProject.Models
             context = ctx;
         }
 
-        public IEnumerable<Product> Products => context.Products;
+        public IEnumerable<Product> Products => context.Products
+                                                .Include(product => product.Category)
+                                                .ToList();
 
         public Product Find(int id)
         {
@@ -29,14 +31,27 @@ namespace BagProject.Models
 
         public void Update(Product product)
         {
-            context.Products.Update(product);
-            context.SaveChanges();
+            var productToChange = Find(product.ProductID);
+            if (productToChange != null) {
+                productToChange.ProductName = product.ProductName;
+                productToChange.Price = product.Price;
+                productToChange.Discription = product.Discription;
+                productToChange.CategoryID = product.CategoryID;
+                productToChange.SupplierID = product.SupplierID;
+                context.Products.Update(productToChange);
+                context.SaveChanges();
+            }
+            
         }
 
-        public void Delete(Product product)
+        public void Delete(int id)
         {
-            context.Products.Remove(product);
-            context.SaveChanges();
+            var productToDelet = Find(id);
+            if(productToDelet != null)
+            {
+                context.Products.Remove(productToDelet);
+                context.SaveChanges();
+            }      
         }
 
     }

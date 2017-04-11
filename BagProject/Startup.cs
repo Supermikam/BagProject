@@ -1,5 +1,4 @@
 ﻿using System;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -15,6 +14,10 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using BagProject.API;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json.Serialization;
 
 namespace BagProject
 {
@@ -37,8 +40,14 @@ namespace BagProject
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddMvc().AddJsonOptions(options => {options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; }
-            );
+            services.AddMvc().AddJsonOptions(options => {
+                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
+            services.AddMemoryCache();
+            services.AddSession();
+            services.AddScoped<CartRepository>(sp => CartRepository.GetCart(sp));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<BagContext>()
@@ -70,6 +79,7 @@ namespace BagProject
             services.AddTransient<SupplierRepository, SupplierRepository>();
             services.AddTransient<ProductRepository, ProductRepository>();
             services.AddTransient<OrderRepository, OrderRepository>();
+            
             var connection = @"Server=(localdb)\mssqllocaldb;Database=BagDB;Trusted_Connection=True;";
             services.AddDbContext<BagContext>(options => options.UseSqlServer(connection));
         }
@@ -77,7 +87,7 @@ namespace BagProject
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(AccountController.secretKey));
+            //var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(AccountController.secretKey));
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddConsole(LogLevel.Debug);
             loggerFactory.AddDebug();
@@ -92,51 +102,74 @@ namespace BagProject
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            var tokenValidationParameters = new TokenValidationParameters
-            {
-                // The signing key must match!
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = signingKey,
+            //    var tokenValidationParameters = new TokenValidationParameters
+            //    {
+            //        // The signing key must match!
+            //        ValidateIssuerSigningKey = true,
+            //        IssuerSigningKey = signingKey,
 
-                // Validate the JWT Issuer (iss) claim
-                ValidateIssuer = true,
-                ValidIssuer = "Quality Bags",
+            //        // Validate the JWT Issuer (iss) claim
+            //        ValidateIssuer = true,
+            //        ValidIssuer = "Quality Bags",
 
-                // Validate the JWT Audience (aud) claim
-                ValidateAudience = true,
-                ValidAudience = "App User",
+            //        // Validate the JWT Audience (aud) claim
+            //        ValidateAudience = true,
+            //        ValidAudience = "App User",
 
-                // Validate the token expiry
-                ValidateLifetime = true,
+            //        // Validate the token expiry
+            //        ValidateLifetime = true,
 
-                // If you want to allow a certain amount of clock drift, set that here:
-                ClockSkew = TimeSpan.FromMinutes(30)
-        };
+            //        // If you want to allow a certain amount of clock drift, set that here:
+            //        ClockSkew = TimeSpan.FromMinutes(30)
+            //};
 
-            app.UseJwtBearerAuthentication(new JwtBearerOptions
-            {
-                AutomaticAuthenticate = true,
-                AutomaticChallenge = true,
-                TokenValidationParameters = tokenValidationParameters
-            });
+            //    app.UseJwtBearerAuthentication(new JwtBearerOptions
+            //    {
+            //        AutomaticAuthenticate = true,
+            //        AutomaticChallenge = true,
+            //        TokenValidationParameters = tokenValidationParameters
+            //    });
 
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
-            {
-                AutomaticAuthenticate = true,
-                AutomaticChallenge = true,
-                AuthenticationScheme = "Cookie",
-                CookieName = "access_token",
-                TicketDataFormat = new CustomJwtDataFormat(
-                    SecurityAlgorithms.HmacSha256,
-                    tokenValidationParameters)
-            });
+            //    app.UseCookieAuthentication(new CookieAuthenticationOptions
+            //    {
+            //        AutomaticAuthenticate = true,
+            //        AutomaticChallenge = true,
+            //        AuthenticationScheme = "Cookie",
+            //        CookieName = "access_token",
+            //        TicketDataFormat = new CustomJwtDataFormat(
+            //            SecurityAlgorithms.HmacSha256,
+            //            tokenValidationParameters)
+            //    });
+
+            app.UseDeveloperExceptionPage();
+            app.UseStatusCodePages();
             app.UseStaticFiles();
+            app.UseSession();
+
             app.UseIdentity();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    name: null,
+                    template: "{category}/Page{page:int}",
+                    defaults: new { controller = "Product", action = "GetAllProduct" }
+                    );
+                routes.MapRoute(
+                    name: null,
+                    template: "Page{page:int}",
+                    defaults: new { controller = "Product", action = "GetAllProduct", page = 1 }
+                    );
+                routes.MapRoute(
+                    name: null,
+                    template: "{category}",
+                    defaults: new { controller = "Product", action = "GetAllProduct", page = 1 }
+                    );
+                routes.MapRoute(
+                    name: null,
+                    template: "",
+                    defaults: new { controller = "Product", action = "GetAllProduct", page = 1 });
+                routes.MapRoute(name: null, template: "{controller}/{action}/{id?}");
+
             });
             SeedData.EnsurePopulated(app);
         }

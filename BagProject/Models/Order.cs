@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
+
 namespace BagProject.Models
 {
     public class Order
@@ -18,6 +19,8 @@ namespace BagProject.Models
         public AppUser AppUser { get; set; }
 
         public List<OrderLine> OrderLines { get; set; }
+
+
 
     }
 

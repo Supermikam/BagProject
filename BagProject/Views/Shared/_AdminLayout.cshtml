@@ -9,11 +9,15 @@
         <link rel="stylesheet" asp-href-include="/lib/fontawesome/css/*.css" />
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        
+        <script asp-src-include="lib/jquery/**/jquery.min.js"></script>
+        <script asp-src-include="lib/jquery-validation/**/jquery.validate.min.js">
+        </script>
+        <script asp-src-include="lib/jquery-validation-unobtrusive/**/*.min.js"></script>
+
 
     </environment>
     <environment names="Staging,Production">
-        <link rel="stylesheet" href="~/css/bootstrap.min.css" 
+        <link rel="stylesheet" href="~/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
@@ -32,18 +36,15 @@
 </head>
 <body>
     <div class="navbar navbar-inverse" role="navigation">
-        <a class="navbar-brand" href="#">Quality Bags</a>
-        <div class="pull-right">
-            @await Component.InvokeAsync("CartIcon")
-        </div>
-    </div>
-    <div class="row panel">
-        <div id="categories" class="col-xs-3">
-            @await Component.InvokeAsync("MenuItem")
-        </div>
-        <div class="col-xs-8">
-            @RenderBody()
-        </div>
-    </div>
+        <a class="navbar-brand" href="#">Quality Bags Administration</a>
+        <a class="btn btn-sm btn-primary pull-right"
+           asp-action="Logout" asp-controller="Account">Log Out</a>
+    </div> 
+    @if (TempData["message"] != null)
+    {
+        <div class="alert alert-success">@TempData["message"]</div>
+    }
+    @RenderBody()
 </body>
 </html>
+

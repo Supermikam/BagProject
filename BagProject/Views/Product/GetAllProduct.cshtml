@@ -1,0 +1,22 @@
+
+@model ProductListViewModel
+
+
+<div class="container-fluid">
+    <div class="row">
+    @foreach (var p in Model.Products)
+    {@Html.Partial("_ProductOverView", p)}
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div page-model="@Model.Page" page-action="GetAllProduct" page-classes-enabled="true"
+                 page-class="btn" page-class-normal="btn-default"
+                 page-class-selected="btn-primary" page-url-category="@Model.CurrentCategory"
+                 class="btn-group pull-right">
+            </div>
+        </div>  
+    </div>
+</div>

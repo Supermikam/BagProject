@@ -5,13 +5,37 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+
 
 namespace BagProject.Models
 {
     public static class SeedData
     {
-        public static void EnsurePopulated(IApplicationBuilder app)
+        private const string adminUserEmail = "Admin@qualitybags.co.nz";
+        private const string adminPassword = "adminpassword";
+        public static async void EnsurePopulated(IApplicationBuilder app)
         {
+            UserManager<AppUser> userManager = app.ApplicationServices
+                .GetRequiredService<UserManager<AppUser>>();
+            AppUser user = await userManager.FindByEmailAsync(adminUserEmail);
+            if (user == null)
+            {
+                user = new AppUser
+                {
+                    UserName = adminUserEmail,
+                    Email = adminUserEmail,
+                    Active = true,
+                    CustomerName = "Admin",
+                    HomePhone = "09-278-9987",
+                    WorkPhone = "09-278-2222",
+                    MobilePhone = "022-022-0000",
+                    Address = "1 the Bag Road, Auckland"
+                };
+                await userManager.CreateAsync(user, adminPassword);
+            }
+
             BagContext context = app.ApplicationServices.GetRequiredService<BagContext>();
 
             if (!context.Categories.Any())
@@ -103,7 +127,7 @@ namespace BagProject.Models
                     ProductName = "ballet from above",
                     Price = 19,
                     Discription = "Designed by Laura Zalenga",
-                    ImageLink = "images/products/product1.jpg",
+                    ImageLink = "/images/products/product1.jpg",
                     Category = categoryOne,
                     Supplier = supplierOne
                 };
@@ -112,7 +136,7 @@ namespace BagProject.Models
                     ProductName = "The Raven",
                     Price = 19,
                     Discription = "Designed by Jamie Stryker",
-                    ImageLink = "images/products/product2.jpg",
+                    ImageLink = "/images/products/product2.jpg",
                     Category = categoryTwo,
                     Supplier = supplierTwo,
                 };
@@ -121,7 +145,7 @@ namespace BagProject.Models
                     ProductName = "Road to Nowhere",
                     Price = 26,
                     Discription = "Designed by steampunkgrub",
-                    ImageLink = "images/products/product3.jpg",
+                    ImageLink = "/images/products/product3.jpg",
                     Category = categoryThree,
                     Supplier = supplierOne,
 
@@ -131,7 +155,7 @@ namespace BagProject.Models
                     ProductName = "Once Upon a Time",
                     Price = 33,
                     Discription = "Designed by nicebleed",
-                    ImageLink = "images/products/product4.jpg",
+                    ImageLink = "/images/products/product4.jpg",
                     Category = categoryFour,
                     Supplier = supplierTwo,
                 };

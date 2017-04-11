@@ -45,6 +45,7 @@ namespace BagProject.API
             return CreatedAtRoute("GetProductByID", new { id = product.ProductID }, product);
         }
 
+        //need to be updated. ProductRepo changed.
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] Product product)
         {
@@ -78,7 +79,7 @@ namespace BagProject.API
             {
                 return NotFound();
             }
-            productRepo.Delete(product);
+            productRepo.Delete(id);
             return new NoContentResult();
         }
 
