@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BagProject", "BagProject\BagProject.csproj", "{E21AD140-BB85-4C07-9F1D-8F2EE19D54AF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B4955F81-C305-413C-BA3A-A682AA67CF1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BagProject.Tests", "BagProject.Tests\BagProject.Tests.csproj", "{0F237105-D73C-4C77-92C1-12FECC7E4235}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,8 +19,15 @@ Global
 		{E21AD140-BB85-4C07-9F1D-8F2EE19D54AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E21AD140-BB85-4C07-9F1D-8F2EE19D54AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E21AD140-BB85-4C07-9F1D-8F2EE19D54AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F237105-D73C-4C77-92C1-12FECC7E4235}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F237105-D73C-4C77-92C1-12FECC7E4235}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F237105-D73C-4C77-92C1-12FECC7E4235}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F237105-D73C-4C77-92C1-12FECC7E4235}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0F237105-D73C-4C77-92C1-12FECC7E4235} = {B4955F81-C305-413C-BA3A-A682AA67CF1D}
 	EndGlobalSection
 EndGlobal

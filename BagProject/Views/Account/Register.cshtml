@@ -1,0 +1,52 @@
+﻿@model RegisterViewModel
+
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="text-danger" asp-validation-summary="All"></div>
+        <form asp-action="Register" asp-controller="Account" method="post">
+            <input type="hidden" asp-for="ReturnUrl" />
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <div><span asp-validation-for="Email" class="text-danger"></span></div>
+                <input asp-for="Email" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <div><span asp-validation-for="Password" class="text-danger"></span></div>
+                <input asp-for="Password" class="form-control" required/>
+            </div>
+            <div class="form-group">
+                <label asp-for="ComfirmPassword"></label>
+                <div><span asp-validation-for="ComfirmPassword" class="text-danger"></span></div>
+                <input asp-for="ComfirmPassword" class="form-control" required/>
+            </div>
+            <div class="form-group">
+                <label asp-for="FullName"></label>
+                <div><span asp-validation-for="FullName" class="text-danger"></span></div>
+                <input asp-for="FullName" class="form-control" required/>
+            </div>
+            <div class="form-group">
+                <label asp-for="HomePhone"></label>
+                <div><span asp-validation-for="HomePhone" class="text-danger"></span></div>
+                <input asp-for="HomePhone" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkPhone"></label>
+                <div><span asp-validation-for="WorkPhone" class="text-danger"></span></div>
+                <input asp-for="WorkPhone" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="MobilePhone"></label>
+                <div><span asp-validation-for="MobilePhone" class="text-danger"></span></div>
+                <input asp-for="MobilePhone" class="form-control" required/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address"></label>
+                <div><span asp-validation-for="Address" class="text-danger"></span></div>
+                <input asp-for="Address" class="form-control" required/>
+            </div>
+            <button class="btn btn-primary" type="submit">Register</button>
+
+        </form>
+    </div>
+</div>

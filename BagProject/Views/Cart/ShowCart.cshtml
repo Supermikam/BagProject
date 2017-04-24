@@ -1,19 +1,22 @@
 ﻿@model CartViewModel
 
 <h2>Your cart</h2>
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped"  >
     <thead>
         <tr>
+            <th>ID</th>
             <th>Quantity</th>
             <th>Item</th>
             <th class="text-right">Price</th>
             <th class="text-right">Subtotal</th>
+            <th class="text-right">Operation</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var line in Model.Cart.Lines)
         {
             <tr>
+                <td class="text-center">@line.Product.ProductID</td>
                 <td class="text-center">@line.Quantity</td>
                 <td class="text-left">@line.Product.ProductName</td>
                 <td class="text-right">@line.Product.Price.ToString("c")</td>
@@ -36,7 +39,19 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="3" class="text-right">Total:</td>
+            <td colspan="4" class="text-right">Total:</td>
+            <td class="text-right">
+                @Model.Cart.ComputeTotalValue().ToString("c")
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" class="text-right">GST:</td>
+            <td class="text-right">
+                @Model.Cart.ComputeGST().ToString("c")
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" class="text-right">Grand Total:</td>
             <td class="text-right">
                 @Model.Cart.ComputeTotalValue().ToString("c")
             </td>
@@ -46,4 +61,10 @@
 
 <div class="text-center">
     <a class="btn btn-primary" href="@Model.ReturnUrl">Continue shopping</a>
+    <a class="btn btn-danger"  asp-controller="Cart" 
+       asp-action="ClearCart" 
+       asp-route-returnUrl="@Model.ReturnUrl">Clear Cart</a>
+    <a class="btn btn-success" asp-action="CheckOut" asp-controller="Order">
+        Checkout
+    </a>
 </div>

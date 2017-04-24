@@ -1,16 +1,17 @@
 @model IEnumerable<Category>
-    <a class="btn btn-block btn-default"
+    <a 
        asp-action="GetAllProduct"
        asp-controller="Product"
        asp-route-category="">
         Home
     </a>
     @foreach (Category category in Model) {
-        <a class="btn btn-block @(category.CategoryName == ViewBag.SelectedCategory ? "btn-primary": "btn-default")"
+        <a 
            asp-action="GetAllProduct"
            asp-controller="Product"
            asp-route-category="@category.CategoryName"
            asp-route-page="1">
             @category.CategoryName
         </a>
-}
+    }
+    <a asp-action="GetPage" asp-controller="ContactUs">Contact Us</a>

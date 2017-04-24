@@ -1,0 +1,44 @@
+﻿@model AppUser
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<form  asp-action="SaveEditUser" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <div><span asp-validation-for="Email" class="text-danger"></span></div>
+        <input asp-for="Email" class="form-control"required />
+    </div>
+    <div class="form-group">
+        <label asp-for="CustomerName"></label>
+        <div><span asp-validation-for="CustomerName" class="text-danger"></span></div>
+        <input asp-for="CustomerName" class="form-control"required />
+    </div>
+    <div class="form-group">
+        <label asp-for="HomePhone"></label>
+        <div><span asp-validation-for="HomePhone" class="text-danger"></span></div>
+        <textarea asp-for="HomePhone" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="WorkPhone"></label>
+        <div><span asp-validation-for="WorkPhone" class="text-danger"></span></div>
+        <textarea asp-for="WorkPhone" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="MobilePhone"></label>
+        <div><span asp-validation-for="MobilePhone" class="text-danger"></span></div>
+        <input asp-for="MobilePhone" class="form-control" required/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Address"></label>
+        <div><span asp-validation-for="Address" class="text-danger"></span></div>
+        <input asp-for="Address" class="form-control" required/>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Save</button>
+        <a asp-action="GetUsers" class="btn btn-default">Cancel</a>
+    </div>
+</form>
+

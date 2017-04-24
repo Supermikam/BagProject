@@ -1,37 +1,205 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿
+
+body {
+    margin-left: 1rem;
+    margin-right: 1rem;
 }
 
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+#nav {
+    padding-top: 24px;
+    padding-bottom: 24px;
 }
 
-/* Set widths on the form inputs since otherwise they're 100% wide */
-input,
-select,
-textarea {
-    max-width: 280px;
+
+#nav img {
+    width: 48px;
+    text-align: right;
 }
 
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
+#logo-text a {
+    color: #222;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-size: 36px;
 }
 
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
+#logo-text a:hover {
+    text-decoration: none;
+    color: #999;
 }
 
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
+#nav-button {
+    list-style: none;
+    text-align: center;
+    display: inline-block;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-size: 24px;
+    margin-top: 12px;
+}
+
+#nav-button a {
+    text-decoration: none;
+    color: #222;
+    margin-right: 2rem;
+}
+
+#nav-button a:hover {
+    text-decoration: none;
+    color: #999;
+}
+
+#cart {
+    text-align: right;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-size: 24px;
+    margin-top: 12px;
+}
+
+#cart a {
+    color: #222;
+}
+
+#cart a:hover {
+    text-decoration: none;
+    color: #999;
+}
+
+#header {
+    position: relative;
+    background-image: url('images/bar.jpg');
+    background-color: #ccc;
+    background-size: cover;
+}
+
+    #header h1 {
+        font-family: 'Oswald', sans-serif;
+        text-align: center;
     }
+
+    #header h2 {
+        font-family: 'Libre Franklin', sans-serif;
+        text-align: center;
+    }
+
+
+#footer {
+    padding-top: 1rem;
+    text-align: center;
+    padding-bottom: 3rem;
+}
+
+    #footer h3 {
+        font-family: 'Amatic SC', cursive;
+        font-size: 24px;
+    }
+
+    #footer p {
+        font-family: 'Yanone Kaffeesatz', sans-serif;
+        font-size: 16px;
+    }
+.showpic img {
+    width: 100%;
+    transition: all 0.1s;
+    transition-timing-function: ease-in;
+}
+
+    .showpic img:hover {
+        transform: scale(1.1);
+    }
+
+.vertical-text {
+    text-align: left;
+    transform: rotate(90deg);
+    transform-origin: center center 0;
+    font-family: 'Oswald', sans-serif;
+    font-size: 3em;
+    margin-top: 60%;
+}
+
+#intro {
+    text-align: center;
+}
+
+#intro #first-line {
+    margin-top: 2rem;
+    font-family: 'Bungee Inline', cursive;
+    font-size: 60px;
+}
+
+#intro #second-line {
+    font-family: 'Lalezar', cursive;
+    font-size: 48px;
+}
+
+#intro #third-line {
+    font-family: 'Righteous', cursive;
+    font-size: 36px;
+}
+
+#intro #forth-line {
+    font-family: 'Gloria Hallelujah', cursive;
+    font-size: 36px;
+}
+
+#intro #fifth-line {
+    font-family: 'Cuprum', sans-serif;
+    font-size: 36px;
+}
+
+#intro #sixth-line {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 36px;
+}
+
+#intro #seventh-line {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 42px;
+}
+
+#onsale1 {
+    margin-top: 10%;
+}
+
+#onsale2 {
+    margin-top: 19%;
+}
+
+#onsale4 {
+    margin-top: 47%;
+}
+
+.image-container {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+.flow-under {
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    height: 80px;
+    z-index: 20;
+    opacity: 0.7;
+    background: black;
+}
+
+.text-on-left {
+    margin-top: 30px;
+    float: left;
+    margin-left: 5%;
+    font-family: 'Lalezar', cursive;
+    font-size: 28px;
+    color: white;
+}
+
+.text-on-right {
+    margin-top: 24px;
+    float: right;
+    margin-right: 5%;
+    font-size: 28px;
+    color: white;
+}
+
+.cart-image:hover {
+    cursor: pointer;
 }

@@ -19,6 +19,20 @@ namespace BagProject.Models
         {
             UserManager<AppUser> userManager = app.ApplicationServices
                 .GetRequiredService<UserManager<AppUser>>();
+            RoleManager<IdentityRole> roleManager = app.ApplicationServices.GetRequiredService<RoleManager<IdentityRole>>();
+
+            IdentityRole adminRole = await roleManager.FindByNameAsync("Admin");
+            if (adminRole == null)
+            {
+                await roleManager.CreateAsync(new IdentityRole("Admin"));
+            };
+
+            IdentityRole customerRole = await roleManager.FindByNameAsync("Customer");
+            if (customerRole == null)
+            {
+                await roleManager.CreateAsync(new IdentityRole("Customer"));
+            };
+
             AppUser user = await userManager.FindByEmailAsync(adminUserEmail);
             if (user == null)
             {
@@ -34,6 +48,7 @@ namespace BagProject.Models
                     Address = "1 the Bag Road, Auckland"
                 };
                 await userManager.CreateAsync(user, adminPassword);
+                await userManager.AddToRoleAsync(user,"Admin");
             }
 
             BagContext context = app.ApplicationServices.GetRequiredService<BagContext>();

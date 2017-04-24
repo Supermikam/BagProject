@@ -9,6 +9,7 @@ namespace BagProject.Models
     {
         [Key]
         public int CategoryID { get; set; }
+        [Required(ErrorMessage = "Please enter a name")]
         public string CategoryName { get; set; }
 
         public List<Product> Products { get; set; }

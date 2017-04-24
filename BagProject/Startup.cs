@@ -75,7 +75,7 @@ namespace BagProject
                 options.User.RequireUniqueEmail = true;
             });
             services.AddTransient<ICategoryRepository, CategoryRepository>();
-            services.AddTransient<CustomerRepository, CustomerRepository>();
+            
             services.AddTransient<SupplierRepository, SupplierRepository>();
             services.AddTransient<ProductRepository, ProductRepository>();
             services.AddTransient<OrderRepository, OrderRepository>();

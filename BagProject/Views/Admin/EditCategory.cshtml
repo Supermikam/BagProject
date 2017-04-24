@@ -1,0 +1,19 @@
+﻿@model Category
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<form asp-action="SaveEditCategory" method="post">
+    <input type="hidden" asp-for="CategoryID" />
+    <div class="form-group">
+        <label asp-for="CategoryName"></label>
+        <div><span asp-validation-for="CategoryName" class="text-danger"></span></div>
+        <input asp-for="CategoryName" class="form-control" required />
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Save</button>
+        <a asp-action="GetCategories" class="btn btn-default">Cancel</a>
+    </div>
+</form>
+

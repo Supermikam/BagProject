@@ -13,47 +13,47 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 
-namespace BagProject.API
-{
-    [Route("api/[controller]/[action]")]
-    public class CustomerController : Controller
-    {
-        private CustomerRepository customerRepo;
-        private readonly UserManager<AppUser> _userManager;
-        private readonly SignInManager<AppUser> _signInManager;
-        public CustomerController(
-            CustomerRepository repo,
-            UserManager<AppUser> userManager,
-            SignInManager<AppUser> signInManager)
-        {
-            customerRepo = repo;
-            _signInManager = signInManager;
-            _userManager = userManager;
+//namespace BagProject.API
+//{
+//    [Route("api/[controller]/[action]")]
+//    public class CustomerController : Controller
+//    {
+//        private CustomerRepository customerRepo;
+//        private readonly UserManager<AppUser> _userManager;
+//        private readonly SignInManager<AppUser> _signInManager;
+//        public CustomerController(
+//            CustomerRepository repo,
+//            UserManager<AppUser> userManager,
+//            SignInManager<AppUser> signInManager)
+//        {
+//            customerRepo = repo;
+//            _signInManager = signInManager;
+//            _userManager = userManager;
 
-        }
+//        }
 
-        [HttpGet]
-        public IActionResult GetALLCustomers()
-        {
-            if (customerRepo.Customers != null)
-            {
-                return new ObjectResult(customerRepo.Customers);
-            }
-            return NotFound();
-        }
+//        [HttpGet]
+//        public IActionResult GetALLCustomers()
+//        {
+//            if (customerRepo.Customers != null)
+//            {
+//                return new ObjectResult(customerRepo.Customers);
+//            }
+//            return NotFound();
+//        }
 
-        [Authorize]
-        [HttpGet(Name = "getCustomerInfo")]
-        public IActionResult GetCustomerInfo()
-        {
-            var email = User.Identity.Name;
-            var customer = customerRepo.GetCustomerInfo(email);
-            if (customer == null)
-            {
-                return NotFound();
-            }
-            return new ObjectResult(customer);
-        }
+//        [Authorize]
+//        [HttpGet(Name = "getCustomerInfo")]
+//        public IActionResult GetCustomerInfo()
+//        {
+//            var email = User.Identity.Name;
+//            var customer = customerRepo.GetCustomerInfo(email);
+//            if (customer == null)
+//            {
+//                return NotFound();
+//            }
+//            return new ObjectResult(customer);
+//        }
 
         //[Authorize]
         //[HttpPut]
@@ -92,5 +92,5 @@ namespace BagProject.API
         //    customerRepo.Delete(customer);
         //    return new NoContentResult();
         //}
-    }
-}
+//    }
+//}

@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims 
+
+<!DOCTYPE html>
 <html ng-app="bagApp">
 <head>
     <meta charset="utf-8" />
@@ -7,12 +9,18 @@
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" asp-href-include="/lib/fontawesome/css/*.css" />
+        <link rel="stylesheet" asp-href-include="/css/site.css"/>
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Righteous|Nova+Flat|
+	Lalezar|Bungee+Inline|Cuprum|Exo+2|Amatic+SC|Libre+Franklin|Josefin+Sans|Yanone+Kaffeesatz|Oswald" rel="stylesheet">
         
 
     </environment>
     <environment names="Staging,Production">
+        <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Righteous|Nova+Flat|
+	Lalezar|Bungee+Inline|Cuprum|Exo+2|Amatic+SC|Libre+Franklin|Josefin+Sans|Yanone+Kaffeesatz|Oswald" rel="stylesheet">
+        <link rel="stylesheet" asp-href-include="/css/site.css" />
         <link rel="stylesheet" href="~/css/bootstrap.min.css" 
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
@@ -31,17 +39,35 @@
     </environment>
 </head>
 <body>
-    <div class="navbar navbar-inverse" role="navigation">
-        <a class="navbar-brand" href="#">Quality Bags</a>
-        <div class="pull-right">
-            @await Component.InvokeAsync("CartIcon")
+    <div class='container-fluid'>
+        <!-- Navigation Section -->
+        <div class='row' id='nav'>
+            <div class='col-md-3' id='logo-text'>
+                <a asp-action="GetAllProduct"
+           asp-controller="Product"
+           asp-route-category="" 
+           asp-route-page="1"> <img src='~/images/logo.png'>Quality Bags</a>
+            </div>
+            <div class='col-md-6' id='nav-button'>
+                @await Component.InvokeAsync("MenuItem")
+            </div>
+            <div class='col-md-3' id='cart'>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a asp-controller="Account" asp-action="GetUserDetail">Account</a>
+                    <a asp-controller="Account" asp-action="Logout">Logout</a>
+                }
+                else
+                {
+                    <a asp-controller="Account" asp-action="Login">Login</a>
+                    
+                } 
+                @await Component.InvokeAsync("CartIcon")
+            </div>
         </div>
-    </div>
-    <div class="row panel">
-        <div id="categories" class="col-xs-3">
-            @await Component.InvokeAsync("MenuItem")
-        </div>
-        <div class="col-xs-8">
+
+        <!--Main Body-->
+        <div class="row">
             @RenderBody()
         </div>
     </div>

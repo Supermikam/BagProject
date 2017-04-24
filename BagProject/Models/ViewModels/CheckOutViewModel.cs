@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 
 namespace BagProject.Models.ViewModels
 {
-    public class CartViewModel
+    public class CheckOutViewModel
     {
-        public CartRepository Cart { get; set; }
-        public string ReturnUrl { get; set; }
-
+        public string message { get; set; }
     }
 }

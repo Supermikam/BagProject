@@ -6,6 +6,7 @@
     <title>Quality Bags</title>
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" asp-href-include="/css/site.css" />
         <link rel="stylesheet" asp-href-include="/lib/fontawesome/css/*.css" />
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
@@ -20,6 +21,7 @@
         <link rel="stylesheet" href="~/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" asp-href-include="/css/site.css" />
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
                 asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
                 asp-fallback-test="window.jQuery"
@@ -35,16 +37,47 @@
     </environment>
 </head>
 <body>
-    <div class="navbar navbar-inverse" role="navigation">
-        <a class="navbar-brand" href="#">Quality Bags Administration</a>
-        <a class="btn btn-sm btn-primary pull-right"
-           asp-action="Logout" asp-controller="Account">Log Out</a>
-    </div> 
-    @if (TempData["message"] != null)
-    {
-        <div class="alert alert-success">@TempData["message"]</div>
-    }
-    @RenderBody()
+    <div class="container-fluid">
+        <div class='row' id='nav'>
+            <div class='col-md-3' id='logo-text'>
+                <a asp-action="GetProducts"
+                   asp-controller="Admin"
+                ><img src='~/images/logo.png'>Admin</a>
+            </div>
+            <div class='col-md-7' id='nav-button'>
+                <a asp-action="GetProducts"
+                   asp-controller="Admin">
+                    Product
+                </a>
+                <a asp-action="GetCategories"
+                   asp-controller="Admin">
+                    Category
+                </a>
+                <a asp-action="GetSuppliers"
+                   asp-controller="Admin">
+                    Supplier
+                </a>
+                <a asp-action="GetOrders"
+                   asp-controller="Admin">
+                    Order
+                </a>
+                <a asp-action="GetUsers"
+                   asp-controller="Admin">
+                    Customer
+                </a>
+                
+            </div>
+            <div class='col-md-2' id='cart'>
+                <a asp-controller="Account" asp-action="Logout">Log Out</a>
+            </div>
+        </div>
+
+        @if (TempData["message"] != null)
+        {
+            <div class="alert alert-success">@TempData["message"]</div>
+        }
+        @RenderBody()
+    </div>
 </body>
 </html>
 

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace BagProject.Migrations
 {
-    public partial class Reset : Migration
+    public partial class Reinit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -166,10 +166,10 @@ namespace BagProject.Migrations
                     ProductID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CategoryID = table.Column<int>(nullable: false),
-                    Discription = table.Column<string>(nullable: true),
+                    Discription = table.Column<string>(nullable: false),
                     ImageLink = table.Column<string>(nullable: true),
                     Price = table.Column<decimal>(nullable: false),
-                    ProductName = table.Column<string>(nullable: true),
+                    ProductName = table.Column<string>(nullable: false),
                     SupplierID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

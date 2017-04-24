@@ -1,0 +1,38 @@
+﻿@model Supplier
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<form asp-action="SaveEditSupplier" method="post">
+    <input type="hidden" asp-for="SupplierID" />
+    <div class="form-group">
+        <label asp-for="SupplierName"></label>
+        <div><span asp-validation-for="SupplierName" class="text-danger"></span></div>
+        <input asp-for="SupplierName" class="form-control"required />
+    </div>
+    <div class="form-group">
+        <label asp-for="HomePhone"></label>
+        <div><span asp-validation-for="HomePhone" class="text-danger"></span></div>
+        <input asp-for="HomePhone" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="WorkPhone"></label>
+        <div><span asp-validation-for="WorkPhone" class="text-danger"></span></div>
+        <input asp-for="WorkPhone" class="form-control"required />
+    </div>
+    <div class="form-group">
+        <label asp-for="MobilePhone"></label>
+        <div><span asp-validation-for="MobilePhone" class="text-danger"></span></div>
+        <input asp-for="MobilePhone" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <div><span asp-validation-for="Email" class="text-danger"></span></div>
+        <input asp-for="Email" class="form-control" required/>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Save</button>
+        <a asp-action="GetSuppliers" class="btn btn-default">Cancel</a>
+    </div>
+</form>

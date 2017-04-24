@@ -27,7 +27,7 @@ namespace BagProject.Controllers
                 ReturnUrl = returnUrl
             });
         }
-        public RedirectToActionResult AddToCart(int productId, string returnUrl)
+        public void AddToCart(int productId)
         {
             Product product = _productRepo.Products
             .FirstOrDefault(p => p.ProductID == productId);
@@ -37,7 +37,7 @@ namespace BagProject.Controllers
                 _cart.AddItem(product, 1);
               
             }
-            return RedirectToAction("ShowCart", new { returnUrl });
+            //return RedirectToAction("ShowCart", new { returnUrl });
         }
 
         public RedirectToActionResult RemoveFromCart(int productId, string returnUrl)
@@ -52,5 +52,15 @@ namespace BagProject.Controllers
             }
             return RedirectToAction("ShowCart", new { returnUrl });
         }
+
+        public RedirectToActionResult ClearCart(string returnUrl)
+        {
+            _cart.Clear();
+            return RedirectToAction("ShowCart", new { returnUrl });
+
+        }
+
+       
+
     }
 }

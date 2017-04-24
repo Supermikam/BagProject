@@ -12,5 +12,6 @@ namespace BagProject.Models
         Category Find(int id);
         void AddCategory(Category category);
         void Update(Category category);
+        void Delete(Category category);
     }
 }

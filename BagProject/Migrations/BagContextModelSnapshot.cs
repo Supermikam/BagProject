@@ -129,13 +129,15 @@ namespace BagProject.Migrations
 
                     b.Property<int>("CategoryID");
 
-                    b.Property<string>("Discription");
+                    b.Property<string>("Discription")
+                        .IsRequired();
 
                     b.Property<string>("ImageLink");
 
                     b.Property<decimal>("Price");
 
-                    b.Property<string>("ProductName");
+                    b.Property<string>("ProductName")
+                        .IsRequired();
 
                     b.Property<int>("SupplierID");
 

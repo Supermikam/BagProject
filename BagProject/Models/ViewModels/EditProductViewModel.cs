@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace BagProject.Models.ViewModels
         public Product Product { get; set; }
         public List<SelectListItem> Suppliers { get; set; }
         public String Supplier { get; set; }
+        public IFormFile Image { get; set; }
 
     }
 }

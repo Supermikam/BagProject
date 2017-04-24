@@ -4,13 +4,10 @@
     <img style="width: 100%" src=@Model.ImageLink alt=@Model.ProductName />
     <h3>@Model.ProductName</h3>
     <p>@Model.Discription</p>
-    <h4>@Model.Price.ToString("c")</h4>
-
+    <h4>@Model.Price.ToString("c")</h4>    
     <form id="@Model.ProductID" asp-action="AddToCart"
           asp-controller="Cart" method="post">
         <input type="hidden" asp-for="ProductID" />
-        <input type="hidden" name="returnUrl"
-               value="@ViewContext.HttpContext.Request.PathAndQuery()" />
         <span class="lead">
             @Model.Discription
             <button type="submit" class="btn btn-success btn-sm">
@@ -18,4 +15,5 @@
             </button>
         </span>
     </form>
+     
 </div>

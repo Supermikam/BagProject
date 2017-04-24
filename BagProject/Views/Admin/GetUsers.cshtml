@@ -1,0 +1,46 @@
+﻿@model IEnumerable<AppUser>
+@{
+    Layout = "_AdminLayout";
+}
+
+<div class="bg-primary panel-body"><h4>Customer Accounts</h4></div>
+<table class="table table-condensed table-bordered">
+    <tr><th>ID</th><th>Email</th><th>Status</th><th>Operations</th></tr>
+    @if (Model.Count() == 0)
+    {
+        <tr><td colspan="3" class="text-center">No User Accounts</td></tr>
+    }
+    else
+    {
+        foreach (AppUser user in Model)
+        {
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.Email</td>
+                @if (user.Active)
+                {
+                <td>Active</td>
+                } else {
+                    <td>Locked</td>}
+                <td>                   
+                        <a asp-action="DeleteUser" class="btn btn-sm btn-danger"
+                           asp-route-userId="@user.Id">
+                            Delete
+                        </a>
+                        <a asp-action="EditUser" class="btn btn-sm btn-success" 
+                           asp-route-userId="@user.Id">Edit</a>
+                        @if (@user.Active)
+                        {
+                            <a asp-action="ChangeUserState" class="btn btn-sm btn-warning"
+                               asp-route-userId="@user.Id">Lock</a>
+                        }
+                        else
+                        {
+                            <a asp-action="ChangeUserState" class="btn btn-sm btn-info"
+                               asp-route-userId="@user.Id">Activate</a>
+                        }                                      
+                </td>
+            </tr>
+        }
+    }
+</table>

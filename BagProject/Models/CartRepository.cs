@@ -10,15 +10,30 @@ namespace BagProject.Models
 {
     public class CartRepository
     {
-     
-        public CartRepository()
-        {
-            
-        }
+        //[JsonIgnore]
+        //private BagContext _context { get; set; }
 
         private List<OrderLine> OrderLines = new List<OrderLine>();
+
         [JsonIgnore]
         public ISession Session { get; set; }
+
+        public CartRepository()
+        {
+            //_context = ctx;           
+        }
+
+        public int ItemTotal
+        {
+            get
+            {
+                int total = 0;
+                foreach (OrderLine line in Lines){
+                    total += line.Quantity;
+                }
+                return total;
+            }
+        }
 
         public static CartRepository GetCart(IServiceProvider services)
         {
@@ -63,12 +78,12 @@ namespace BagProject.Models
         public virtual decimal ComputeTotalValue() 
             => OrderLines.Sum(l => l.Product.Price * l.Quantity);
 
-        public virtual string ComputeGST()
+        public virtual double ComputeGST()
         {
             decimal total = ComputeTotalValue();
             
             var GST = Convert.ToDouble(total) * 0.15;
-            return GST.ToString("c{0:0.00}");
+            return GST;
 
 
         }
@@ -81,5 +96,6 @@ namespace BagProject.Models
         }
 
         public virtual IEnumerable<OrderLine> Lines => OrderLines;
+
     }
 }

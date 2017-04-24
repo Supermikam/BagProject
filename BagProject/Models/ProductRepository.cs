@@ -38,6 +38,7 @@ namespace BagProject.Models
                 productToChange.Discription = product.Discription;
                 productToChange.CategoryID = product.CategoryID;
                 productToChange.SupplierID = product.SupplierID;
+                productToChange.ImageLink = product.ImageLink;
                 context.Products.Update(productToChange);
                 context.SaveChanges();
             }

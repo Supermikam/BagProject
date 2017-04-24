@@ -17,6 +17,8 @@ namespace BagProject.Models
 
         public IEnumerable<Category> Categories => context.Categories;
 
+        
+
         public Category Find(int id)
         {
             return context.Categories.FirstOrDefault(c => c.CategoryID == id);
@@ -32,6 +34,13 @@ namespace BagProject.Models
         {
             context.Categories.Update(category);
             context.SaveChanges();
+        }
+
+        public void Delete(Category category)
+        {
+            context.Remove(category);
+            context.SaveChanges();
+
         }
     }
 }
